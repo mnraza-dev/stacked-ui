@@ -32,8 +32,8 @@ importers:
         specifier: ^19.0.0
         version: 19.1.0(react@19.1.0)
       stackedui:
-        specifier: ^0.0.0
-        version: 0.0.0(@types/react-dom@19.1.5(@types/react@19.1.4))(@types/react@19.1.4)(vite@6.3.5(@types/node@20.17.48)(jiti@2.4.2)(lightningcss@1.30.1))
+        specifier: ^0.0.1
+        version: 0.0.1(@types/react-dom@19.1.5(@types/react@19.1.4))(@types/react@19.1.4)(vite@6.3.5(@types/node@20.17.48)(jiti@2.4.2)(lightningcss@1.30.1))
       tailwind-merge:
         specifier: ^3.3.0
         version: 3.3.0
@@ -2391,8 +2391,8 @@ packages:
   stable-hash@0.0.5:
     resolution: {integrity: sha512-+L3ccpzibovGXFK+Ap/f8LOS0ahMrHTf3xu7mMLSpEGU0EO9ucaysSylKo9eRDFNhWve/y275iPmIZ4z39a9iA==}
 
-  stackedui@0.0.0:
-    resolution: {integrity: sha512-96IgfuAEymh3zgzHjfR+hZr7WJBXILGPvZ35kPWWVCva20Anjz8jIJfSavwgHm7/UJ91pmyVFWvF41UtaeSR3Q==}
+  stackedui@0.0.1:
+    resolution: {integrity: sha512-pbYzA4Of7u411QhZ8LXU0KljZNCvNQHPXYcQSOtwv/tCNnipYBzJhinwtkQ+GAgehzPY3F0w62c3rjra6o4eSQ==}
 
   streamsearch@1.1.0:
     resolution: {integrity: sha512-Mcc5wHehp9aXz1ax6bZUyY5afg9u2rv5cqQI3mRrYkGC8rW2hM02jWuwjtL++LS5qinSyhj2QfLyNsuc+VsExg==}
@@ -5036,7 +5036,7 @@ snapshots:
 
   stable-hash@0.0.5: {}
 
-  stackedui@0.0.0(@types/react-dom@19.1.5(@types/react@19.1.4))(@types/react@19.1.4)(vite@6.3.5(@types/node@20.17.48)(jiti@2.4.2)(lightningcss@1.30.1)):
+  stackedui@0.0.1(@types/react-dom@19.1.5(@types/react@19.1.4))(@types/react@19.1.4)(vite@6.3.5(@types/node@20.17.48)(jiti@2.4.2)(lightningcss@1.30.1)):
     dependencies:
       '@radix-ui/react-label': 2.1.6(@types/react-dom@19.1.5(@types/react@19.1.4))(@types/react@19.1.4)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@radix-ui/react-slot': 1.2.2(@types/react@19.1.4)(react@19.1.0)

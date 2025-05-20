@@ -1,4 +1,4 @@
-import { Button } from 'stackedui'
+import { Button } from "stackedui";
 
 export default function Home() {
   return (
