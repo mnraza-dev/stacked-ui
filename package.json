@@ -4,12 +4,23 @@
   "description": "",
   "main": "index.js",
   "workspaces": {
-    "packages": ["packages/*", "apps/*"]
+    "packages": [
+      "packages/*",
+      "apps/*"
+    ]
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "pnpm": {
+    "overrides": {
+      "stackedui": "link:..\\..\\packages\\stackedui"
+    }
+  },
+  "dependencies": {
+    "stackedui": "link:..\\..\\packages\\stackedui"
+  }
 }
