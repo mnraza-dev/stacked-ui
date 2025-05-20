@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import fs from "fs";
 import path from "path";
 const COMPONENTS_DIR = path.resolve(__dirname, "../../stackedui/src/components");
