@@ -1,26 +1,6 @@
 {
-  "name": "stacked-ui",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "private": true,
   "workspaces": {
-    "packages": [
-      "packages/*",
-      "apps/*"
-    ]
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "pnpm": {
-    "overrides": {
-      "stackedui": "link:..\\..\\packages\\stackedui"
-    }
-  },
-  "dependencies": {
-    "stackedui": "link:..\\..\\packages\\stackedui"
+    "packages": ["packages/*", "apps/*"]
   }
 }
