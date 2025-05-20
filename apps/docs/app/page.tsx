@@ -1,11 +1,12 @@
-import { Button } from "stackedui";
-
-export default function Home() {
+"use client"
+import React from 'react'
+import { Button } from 'stackedui'
+const Home = () => {
   return (
-    <main className="p-8">
-      <h1 className="text-3xl font-bold mb-4">StackedUI</h1>
-      <Button variant="primary">Primary</Button>
-      <Button variant="secondary">Secondary</Button>
-    </main>
+    <div>
+      <Button variant="primary">Hi there</Button>
+    </div>
   )
 }
+
+export default Home
