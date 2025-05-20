@@ -1,0 +1,19 @@
+{
+  "name": "stackedui-cli",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "bin": {
+    "stackedui-cli": "dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.20",
+    "typescript": "^5.8.3"
+  },
+  "keywords": [],
+  "author": "MN Raza",
+  "license": "ISC"
+}
