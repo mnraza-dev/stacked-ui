@@ -1,62 +1,34 @@
 #!/usr/bin/env node
+const args = process.argv.slice(2);
+const command = args[0];
 
-import fs from "fs";
-import path from "path";
-
-const COMPONENTS_DIR = path.resolve(__dirname, "../../stackedui/src/components");
-
-const projectRoot = process.cwd();
-const appDir = path.join(projectRoot, "apps/docs");
-
-const srcTarget = path.join(appDir, "src/components/ui");
-const appTarget = path.join(appDir, "app/components/ui");
-const fallbackTarget = path.join(appDir, "components/ui");
-
-let finalTarget: string;
-if (fs.existsSync(srcTarget)) {
-  finalTarget = srcTarget;
-} else if (fs.existsSync(appTarget)) {
-  finalTarget = appTarget;
-} else {
-  finalTarget = fallbackTarget;
-  if (!fs.existsSync(finalTarget)) {
-    fs.mkdirSync(finalTarget, { recursive: true });
-    console.log(`Created fallback directory: ${finalTarget}`);
+async function main() {
+  if (!command) {
+    console.error("❌ Usage: stackedui-cli <command> [args]");
+    process.exit(1);
   }
-}
 
-const componentName = process.argv[2];
-
-if (!componentName) {
-  console.error("❌ Usage: stackedui-cli <component>");
-  process.exit(1);
-}
-
-const srcDir = path.join(COMPONENTS_DIR, componentName);
-const destDir = path.join(finalTarget, componentName);
-
-if (!fs.existsSync(srcDir)) {
-  console.error(`❌ Component '${componentName}' does not exist in stackedui.`);
-  process.exit(1);
-}
-
-function copyRecursive(src: string, dest: string) {
-  if (!fs.existsSync(dest)) fs.mkdirSync(dest, { recursive: true });
-
-  const entries = fs.readdirSync(src, { withFileTypes: true });
-
-  for (const entry of entries) {
-    const srcPath = path.join(src, entry.name);
-    const destPath = path.join(dest, entry.name);
-
-    if (entry.isDirectory()) {
-      copyRecursive(srcPath, destPath);
+  try {
+    if (command === "add") {
+      const { main } = await import("./commands/add");
+      await main(args.slice(1));
+    } else if (command === "init") {
+      const { main } = await import("./commands/init");
+      await main(args.slice(1));
+    } else if (command === "remove") {
+      const { main } = await import("./commands/remove");
+      await main(args.slice(1));
+    } else if (command === "list") {
+      const { main } = await import("./commands/list");
+      await main(args.slice(1));
     } else {
-      fs.copyFileSync(srcPath, destPath);
+      console.error(`❌ Unknown command: ${command}`);
+      process.exit(1);
     }
+  } catch (err) {
+    console.error("❌ Error:", err);
+    process.exit(1);
   }
 }
 
-copyRecursive(srcDir, destDir);
-
-console.log(`✅ Component '${componentName}' added to '${destDir}'`);
+main();
