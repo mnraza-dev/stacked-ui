@@ -10,10 +10,14 @@
     "build": "tsc"
   },
   "devDependencies": {
+    "@types/chalk": "^2.2.4",
     "@types/node": "^22.15.20",
     "typescript": "^5.8.3"
   },
   "keywords": [],
   "author": "MN Raza",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^5.4.1"
+  }
 }
