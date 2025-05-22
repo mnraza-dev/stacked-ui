@@ -1,11 +1,9 @@
 "use client"
+import ButtonPage from '@/pages/buttonPage'
 import React from 'react'
-import { Button } from 'stackedui'
 const Home = () => {
   return (
-    <div className='flex gap-2 items-center justify-center h-screen'>
-      <Button variant="danger" >Danger Button</Button>
-    </div>
+   <ButtonPage/>
   )
 }
 
