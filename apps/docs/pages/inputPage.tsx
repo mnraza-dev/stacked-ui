@@ -1,4 +1,5 @@
-import { Input } from "stackedui";
+import { Input } from "@/components/ui/input/Input";
+
 
 export default function InputPage() {
   return (
