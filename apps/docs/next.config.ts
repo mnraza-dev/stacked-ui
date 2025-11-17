@@ -1,23 +1,10 @@
-import type { NextConfig } from "next";
-import createMDX from "@next/mdx";
-
-const withMDX = createMDX({
-  extension: /\.mdx?$/,
-});
+import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
+  pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
   experimental: {
-    mdxRs: true,
-  },
-  pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
-  turbopack: {
-    rules: {
-      // Required for MDX support in Turbopack
-      "*.mdx": {
-        loaders: ["@next/mdx/turbopack-loader"],
-      },
-    },
+    mdxRs: true, // Rust-based MDX loader
   },
 };
 
-export default withMDX(nextConfig);
+export default nextConfig;

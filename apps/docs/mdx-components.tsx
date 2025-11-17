@@ -1,9 +1,13 @@
-import type { MDXComponents } from "mdx/types";
+// mdx-components.tsx
+"use client";
+import { Button } from "stackedui";
+import { Check, ChevronRight } from "lucide-react";
 
-export function useMDXComponents(components: MDXComponents): MDXComponents {
+export function useMDXComponents(_props: Record<string, any> = {}) {
   return {
-    ...components,
-    // allow raw HTML like <div> in MDX
-    div: (props) => <div {...props} />,
+    Button: (props: any) => <Button {...props} />,       // wrap Button
+    Check: (props: any) => <Check {...props} />,         // wrap Check
+    ChevronRight: (props: any) => <ChevronRight {...props} />, // wrap ChevronRight
+    ..._props,
   };
 }

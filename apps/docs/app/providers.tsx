@@ -1,11 +1,15 @@
+// Providers.tsx (client)
 "use client";
 import { MDXProvider } from "@mdx-js/react";
-import { useMDXComponents } from "../mdx-components";
+import { Button } from "stackedui";
+import { Check, ChevronRight } from "lucide-react";
 
-export function Providers({ children }: { children: React.ReactNode }) {
-  return (
-    <MDXProvider components={useMDXComponents({})}>
-      {children}
-    </MDXProvider>
-  );
+export function MDXProviders({ children }: { children: React.ReactNode }) {
+  const components = {
+    Button: (props: any) => <Button {...props} />,
+    Check: (props: any) => <Check {...props} />,
+    ChevronRight: (props: any) => <ChevronRight {...props} />,
+  };
+
+  return <MDXProvider components={components}>{children}</MDXProvider>;
 }
