@@ -1,6 +1,5 @@
 import { Button } from "stackedui";
 import { Check, ChevronRight } from "lucide-react";
-
 export default function ButtonPage() {
   return (
     <div className="max-w-5xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
@@ -11,7 +10,6 @@ export default function ButtonPage() {
         A versatile button component with multiple variants and sizes, styled with vibrant gradients and smooth hover effects.
       </p>
 
-      {/* Preview Section */}
       <section className="mb-16">
         <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-6">
           Preview

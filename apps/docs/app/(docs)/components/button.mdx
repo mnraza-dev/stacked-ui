@@ -1,0 +1,79 @@
+import { Button } from "stackedui";
+import { Check, ChevronRight } from "lucide-react";
+
+# Button
+
+A versatile button component with multiple variants and sizes, styled with vibrant gradients and smooth hover effects.
+
+---
+
+## Preview
+
+<div className="bg-white dark:bg-gray-900 rounded-lg shadow-lg p-8">
+
+### Variants
+<div className="flex flex-wrap gap-4 mb-8">
+  <Button variant="default">Default</Button>
+  <Button variant="primary">Primary</Button>
+  <Button variant="secondary">Secondary</Button>
+  <Button variant="success">Success</Button>
+  <Button variant="danger">Danger</Button>
+  <Button variant="warning">Warning</Button>
+  <Button variant="outline">Outline</Button>
+  <Button variant="ghost">Ghost</Button>
+  <Button variant="link">Link</Button>
+</div>
+
+### Sizes
+<div className="flex flex-wrap gap-4">
+  <Button variant="primary" size="sm">Small</Button>
+  <Button variant="primary" size="default">Medium</Button>
+  <Button variant="primary" size="lg">Large</Button>
+  <Button variant="primary" size="icon">
+    <Check className="h-5 w-5" />
+  </Button>
+</div>
+
+</div>
+
+---
+
+## Usage
+
+```tsx
+import { Button } from "stackedui";
+import { Check, ChevronRight } from "lucide-react";
+
+export default function Example() {
+  return (
+    <div className="flex flex-wrap gap-4">
+
+      {/* Basic Usage */}
+      <Button variant="default">Default</Button>
+      <Button variant="primary">Primary</Button>
+      <Button variant="success">Success</Button>
+
+      {/* With Icon */}
+      <Button variant="primary" size="lg">
+        <ChevronRight className="mr-2 h-5 w-5" />
+        Continue
+      </Button>
+
+      {/* Icon Only */}
+      <Button variant="success" size="icon">
+        <Check className="h-5 w-5" />
+      </Button>
+
+      {/* Disabled */}
+      <Button variant="danger" disabled>
+        Disabled
+      </Button>
+
+      {/* Custom Styles */}
+      <Button variant="primary" className="bg-gradient-to-r from-red-500 to-pink-500">
+        Custom Gradient
+      </Button>
+
+    </div>
+  );
+}

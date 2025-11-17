@@ -6,7 +6,7 @@ import {
   CardContent,
   CardFooter,
   CardAction,
-} from "@/components/ui/card/Card";
+} from "@/ui/card/Card";
 import { Button } from "stackedui";
 import { X } from "lucide-react";
 
@@ -19,8 +19,6 @@ export default function CardPage() {
       <p className="text-lg text-gray-600 dark:text-gray-300 mb-12">
         A versatile card component with gradient borders and hover effects, ideal for showcasing content in modern business UIs.
       </p>
-
-      {/* Preview Section */}
       <section className="mb-16">
         <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-6">
           Preview
@@ -33,7 +31,7 @@ export default function CardPage() {
                 A clean card with subtle hover scaling.
               </CardDescription>
               <CardAction>
-                <Button variant="ghost" size="icon">
+                <Button variant={'ghost'} size="icon">
                   <X className="h-4 w-4" />
                 </Button>
               </CardAction>
@@ -44,7 +42,7 @@ export default function CardPage() {
               </p>
             </CardContent>
             <CardFooter>
-              <Button variant="primary">Learn More</Button>
+              <Button variant="">Learn More</Button>
             </CardFooter>
           </Card>
           <Card variant="elevated" className="p-6">
@@ -65,13 +63,11 @@ export default function CardPage() {
               </p>
             </CardContent>
             <CardFooter>
-              <Button variant="primary">Get Started</Button>
+              <Button variant="">Get Started</Button>
             </CardFooter>
           </Card>
         </div>
       </section>
-
-      {/* Usage Section */}
       <section className="mb-16">
         <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-6">
           Usage
@@ -117,14 +113,12 @@ export default function Example() {
           </pre>
         </div>
       </section>
-
-      {/* Customization Section */}
       <section>
         <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-6">
           Customization
         </h2>
         <p className="text-gray-600 dark:text-gray-300 mb-4">
-          Use the <code>className</code> prop to apply Tailwind CSS utilities for custom gradients, shadows, or other styles.
+          Use the <code className="text-accent-foreground">className</code> prop to apply Tailwind CSS utilities for custom gradients, shadows, or other styles.
         </p>
         <div className="bg-gray-800 rounded-xl overflow-hidden mb-6">
           <pre className="p-6 text-sm text-gray-100">
@@ -150,7 +144,7 @@ export default function Example() {
         </div>
         <Card
           variant="elevated"
-          className="p-6 bg-gradient-to-r from-red-500/10 to-pink-500/10 hover:scale-[1.04]"
+          className="p-6 bg-gradient-to-r from-blue-500/10 to-green-800/10 hover:scale-[1.01]"
         >
           <CardHeader>
             <CardTitle>Custom Card</CardTitle>

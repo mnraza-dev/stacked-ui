@@ -1,15 +1,8 @@
-"use client"
-import ButtonPage from '@/pages/buttonPage'
-import CardPage from '@/pages/cardPage'
-import InputPage from '@/pages/inputPage'
-import React from 'react'
-const Home = () => {
+export default function Home() {
   return (
-    <>
-      <CardPage />
-      <ButtonPage />
-      <InputPage /></>
-  )
+    <div>
+      <h1 className="text-4xl font-bold mb-4">StackedUI</h1>
+      <p className="text-lg text-gray-700">Select a component from the sidebar.</p>
+    </div>
+  );
 }
-
-export default Home

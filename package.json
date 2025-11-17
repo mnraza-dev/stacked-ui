@@ -3,5 +3,8 @@
   "workspaces": [
     "packages/*",
     "apps/*"
-  ]
+  ],
+  "dependencies": {
+    "@mdx-js/react": "^3.1.1"
+  }
 }

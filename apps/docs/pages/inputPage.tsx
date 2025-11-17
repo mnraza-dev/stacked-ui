@@ -1,6 +1,4 @@
-import { Input } from "@/components/ui/input/Input";
-
-
+import { Input } from "@/ui/input/Input";
 export default function InputPage() {
   return (
     <div className="max-w-5xl mx-auto py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
@@ -10,8 +8,6 @@ export default function InputPage() {
       <p className="text-lg text-gray-600 dark:text-gray-300 mb-12">
         A premium input component with animated focus states and glowing gradient effects, perfect for modern business forms.
       </p>
-
-      {/* Preview Section */}
       <section className="mb-16">
         <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-6">
           Preview
@@ -22,8 +18,6 @@ export default function InputPage() {
           <Input variant="default" placeholder="Disabled Input" disabled />
         </div>
       </section>
-
-      {/* Usage Section */}
       <section className="mb-16">
         <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-6">
           Usage
@@ -51,8 +45,6 @@ export default function Example() {
           </pre>
         </div>
       </section>
-
-      {/* Customization Section */}
       <section>
         <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-6">
           Customization
