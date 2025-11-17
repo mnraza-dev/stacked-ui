@@ -16,10 +16,25 @@ type Variant =
   | 'link';
 
 type Size = 'sm' | 'default' | 'lg' | 'icon';
+type Gradient = { from: string; to: string };
+
+
 
 export default function ButtonPlayground() {
 
   const [copied, setCopied] = useState(false);
+  const [savedGradients, setSavedGradients] = useState<Gradient[]>([]);
+
+  // Save button handler
+  function saveGradient() {
+    const newGradient = { ...config.gradient };
+    setSavedGradients([...savedGradients, newGradient]);
+  }
+
+  // Apply saved gradient
+  function applySavedGradient(g: Gradient) {
+    setConfig({ ...config, gradient: g });
+  }
   function generateButtonCode() {
     return `<Button
     variant="${config.variant}"
@@ -64,6 +79,14 @@ export default function ButtonPlayground() {
     <div className="flex gap-8 p-8">
       {/* Left: Preview */}
       <div className="flex-1 flex flex-col items-center justify-center bg-gray-950 p-8 rounded-lg shadow">
+        <div className='absolute top-8 right-2 '>
+          <button
+            className="mt-2 px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700"
+            onClick={saveGradient}
+          >
+            Save Gradient
+          </button>
+        </div>
         <Button
           variant={config.variant}
           size={config.size}
@@ -77,6 +100,9 @@ export default function ButtonPlayground() {
           {config.showIcon && iconMap[config.icon]}
           {config.customText}
         </Button>
+
+     
+
         <div className="mt-6 w-full">
           <div className="flex justify-between items-center mb-2">
             <span className="font-medium">JSX/TSX Code</span>
@@ -97,7 +123,29 @@ export default function ButtonPlayground() {
             {generateButtonCode()}
           </pre>
         </div>
+   <div className="mt-6 w-full">
+          <div className="flex justify-between items-center mb-2">
+            <span className="font-medium">Recent Saved Gradients</span>
+            <div className="flex gap-2 flex-wrap">
+              {savedGradients.map((g, i) => (
+                <div
+                  key={i}
+                  onClick={() => applySavedGradient(g)}
+                  style={{
+                    background: `linear-gradient(to right, ${g.from}, ${g.to})`,
+                  }}
+                  className="w-16 h-8 rounded cursor-pointer border"
+                  title={`${g.from} → ${g.to}`}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+
       </div>
+
+
+      {/* Right: Controls */}
       <div className="w-64 p-4 border-l space-y-4">
         <h2 className="font-semibold mb-2">Button Config</h2>
 
@@ -207,7 +255,8 @@ export default function ButtonPlayground() {
         <label className="block mb-2">
           Gradient From
 
-        </label>   <HexColorPicker
+        </label>
+        <HexColorPicker
           color={config.gradient.from}
           onChange={(color) =>
             setConfig({ ...config, gradient: { ...config.gradient, from: color } })
@@ -257,6 +306,8 @@ export default function ButtonPlayground() {
           Hover Effect
         </label>
       </div>
+
+
     </div>
   );
 }
