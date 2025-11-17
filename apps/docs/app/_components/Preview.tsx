@@ -11,7 +11,7 @@ export const Preview = ({ children, code }: PreviewProps) => {
   const [showCode, setShowCode] = useState(false);
 
   return (
-    <div className="border rounded-lg p-4 bg-white shadow-sm">
+    <div className="border rounded-lg p-4 bg-neutral-700 shadow-sm">
       <div>{children}</div>
 
       <button

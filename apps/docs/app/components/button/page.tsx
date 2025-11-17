@@ -1,4 +1,5 @@
 'use client';
+
 import { useState } from 'react';
 import { Button } from 'stackedui';
 import { Check, ChevronRight } from 'lucide-react';
@@ -25,6 +26,10 @@ export default function ButtonPlayground() {
     showIcon: false,
     icon: 'Check' as 'Check' | 'ChevronRight',
     customText: 'Dynamic Button',
+    gradient: 'none',
+    rounded: 'md',
+    shadow: false,
+    hoverEffect: true,
   });
 
   const iconMap = {
@@ -32,20 +37,29 @@ export default function ButtonPlayground() {
     ChevronRight: <ChevronRight className="h-5 w-5 mr-2" />,
   };
 
+  const gradientStyles: Record<string, string> = {
+    none: '',
+    'from-red-500 to-pink-500': 'bg-gradient-to-r from-red-500 to-pink-500',
+    'from-blue-500 to-green-500': 'bg-gradient-to-r from-blue-500 to-green-500',
+    'from-yellow-400 to-orange-500': 'bg-gradient-to-r from-yellow-400 to-orange-500',
+  };
+
   return (
     <div className="flex gap-8 p-8">
       {/* Left: Preview */}
-      <div className="flex-1 flex flex-col items-center justify-center bg-gray-50 p-8 rounded-lg shadow">
+      <div className="flex-1 flex flex-col items-center justify-center bg-gray-950 p-8 rounded-lg shadow">
         <Button
           variant={config.variant}
           size={config.size}
           disabled={config.disabled}
-          className={config.fullWidth ? 'w-full' : ''}
+          className={`${config.fullWidth ? 'w-full' : ''} ${gradientStyles[config.gradient]} rounded-${config.rounded} ${
+            config.shadow ? 'shadow-lg' : ''
+          } ${config.hoverEffect ? 'hover:scale-105 transition-transform' : ''}`}
         >
           {config.showIcon && iconMap[config.icon]}
           {config.customText}
         </Button>
-        <pre className="mt-6 bg-gray-100 p-4 rounded text-sm w-full">
+        <pre className="mt-6 bg-gray-950 p-4 rounded text-sm w-full">
           {JSON.stringify(config, null, 2)}
         </pre>
       </div>
@@ -155,6 +169,53 @@ export default function ButtonPlayground() {
             }
             className="w-full border p-1 rounded mt-1"
           />
+        </label>
+
+        <label className="block">
+          Gradient
+          <select
+            value={config.gradient}
+            onChange={(e) => setConfig({ ...config, gradient: e.target.value })}
+            className="w-full border p-1 rounded mt-1"
+          >
+            <option value="none">None</option>
+            <option value="from-red-500 to-pink-500">Red → Pink</option>
+            <option value="from-blue-500 to-green-500">Blue → Green</option>
+            <option value="from-yellow-400 to-orange-500">Yellow → Orange</option>
+          </select>
+        </label>
+
+        <label className="block">
+          Rounded
+          <select
+            value={config.rounded}
+            onChange={(e) => setConfig({ ...config, rounded: e.target.value })}
+            className="w-full border p-1 rounded mt-1"
+          >
+            {['sm', 'md', 'lg', 'full'].map((r) => (
+              <option key={r} value={r}>
+                {r}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <label className="flex items-center gap-2">
+          <input
+            type="checkbox"
+            checked={config.shadow}
+            onChange={(e) => setConfig({ ...config, shadow: e.target.checked })}
+          />
+          Shadow
+        </label>
+
+        <label className="flex items-center gap-2">
+          <input
+            type="checkbox"
+            checked={config.hoverEffect}
+            onChange={(e) => setConfig({ ...config, hoverEffect: e.target.checked })}
+          />
+          Hover Effect
         </label>
       </div>
     </div>
