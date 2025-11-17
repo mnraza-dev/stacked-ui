@@ -3,16 +3,13 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Sidebar from "./_components/Sidebar";
 import { MDXWrapper } from "./providers";
-
 const inter = Inter({
   subsets: ["latin"],
 });
-
 export const metadata: Metadata = {
   title: "Documentation - StackedUI",
   description: "Documentation for StackedUI component library.",
 };
-
 export default function RootLayout({
   children,
 }: {
@@ -20,11 +17,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="dark">
-      <body className={[inter.className, "bg-gray-950 text-white"].join(" ")}>
+      <body className={[inter.className, " text-white"].join(" ")}>
         <div className="flex min-h-screen ">
-      
           <Sidebar />
-  
           <main className="flex-1 p-8">
             <MDXWrapper>{children}</MDXWrapper>
           </main>

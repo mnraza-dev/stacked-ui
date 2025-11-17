@@ -18,6 +18,32 @@ type Variant =
 type Size = 'sm' | 'default' | 'lg' | 'icon';
 
 export default function ButtonPlayground() {
+
+  const [copied, setCopied] = useState(false);
+  const generateButtonCode = () => {
+    const iconJsx = config.showIcon ? `<${config.icon} className="h-5 w-5 mr-2" /> ` : '';
+    const className = [
+      config.fullWidth ? 'w-full' : '',
+      gradientStyles[config.gradient],
+      `rounded-${config.rounded}`,
+      config.shadow ? 'shadow-lg' : '',
+      config.hoverEffect ? 'hover:scale-105 transition-transform' : ''
+    ]
+      .filter(Boolean)
+      .join(' ');
+
+    const disabledProp = config.disabled ? 'disabled' : '';
+
+    return `<Button
+  variant="${config.variant}"
+  size="${config.size}"
+  ${disabledProp}
+  className="${className}"
+>
+  ${iconJsx}${config.customText}
+</Button>`;
+  };
+
   const [config, setConfig] = useState({
     variant: 'primary' as Variant,
     size: 'default' as Size,
@@ -52,19 +78,33 @@ export default function ButtonPlayground() {
           variant={config.variant}
           size={config.size}
           disabled={config.disabled}
-          className={`${config.fullWidth ? 'w-full' : ''} ${gradientStyles[config.gradient]} rounded-${config.rounded} ${
-            config.shadow ? 'shadow-lg' : ''
-          } ${config.hoverEffect ? 'hover:scale-105 transition-transform' : ''}`}
+          className={`${config.fullWidth ? 'w-full' : ''} ${gradientStyles[config.gradient]} rounded-${config.rounded} ${config.shadow ? 'shadow-lg' : ''
+            } ${config.hoverEffect ? 'hover:scale-105 transition-transform' : ''}`}
         >
           {config.showIcon && iconMap[config.icon]}
           {config.customText}
         </Button>
-        <pre className="mt-6 bg-gray-950 p-4 rounded text-sm w-full">
-          {JSON.stringify(config, null, 2)}
-        </pre>
+        <div className="mt-6 w-full">
+          <div className="flex justify-between items-center mb-2">
+            <span className="font-medium">JSX/TSX Code</span>
+            <Button
+              variant="outline"
+              size="sm"
+              className={`px-2 py-1 bg-gray-200  ${copied ? 'dark:bg-green-600 text-gray-100':'dark:bg-gray-800 '} rounded text-sm`}
+              onClick={() => {
+                navigator.clipboard.writeText(generateButtonCode());
+                setCopied(true);
+                setTimeout(() => setCopied(false), 3000);
+              }}
+            >
+              {copied ? 'Copied!' : 'Copy'}
+            </Button>
+          </div>
+          <pre className="bg-gray-100 border mt-4 rounded-lg dark:bg-gray-950 p-4 text-sm overflow-auto">
+            {generateButtonCode()}
+          </pre>
+        </div>
       </div>
-
-      {/* Right: Config Panel */}
       <div className="w-64 p-4 border-l space-y-4">
         <h2 className="font-semibold mb-2">Button Config</h2>
 
