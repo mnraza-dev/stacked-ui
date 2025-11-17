@@ -1,5 +1,5 @@
 'use client';
-
+import { HexColorPicker } from 'react-colorful';
 import { useState } from 'react';
 import { Button } from 'stackedui';
 import { Check, ChevronRight } from 'lucide-react';
@@ -20,29 +20,19 @@ type Size = 'sm' | 'default' | 'lg' | 'icon';
 export default function ButtonPlayground() {
 
   const [copied, setCopied] = useState(false);
-  const generateButtonCode = () => {
-    const iconJsx = config.showIcon ? `<${config.icon} className="h-5 w-5 mr-2" /> ` : '';
-    const className = [
-      config.fullWidth ? 'w-full' : '',
-      gradientStyles[config.gradient],
-      `rounded-${config.rounded}`,
-      config.shadow ? 'shadow-lg' : '',
-      config.hoverEffect ? 'hover:scale-105 transition-transform' : ''
-    ]
-      .filter(Boolean)
-      .join(' ');
-
-    const disabledProp = config.disabled ? 'disabled' : '';
-
+  function generateButtonCode() {
     return `<Button
-  variant="${config.variant}"
-  size="${config.size}"
-  ${disabledProp}
-  className="${className}"
->
-  ${iconJsx}${config.customText}
-</Button>`;
-  };
+    variant="${config.variant}"
+    size="${config.size}"
+    disabled={${config.disabled}}
+    style={{ background: 'linear-gradient(to right, ${config.gradient.from}, ${config.gradient.to})' }}
+    className="rounded-${config.rounded} ${config.shadow ? 'shadow-lg' : ''} ${config.hoverEffect ? 'hover:scale-105 transition-transform' : ''
+      }"
+  >
+    ${config.showIcon ? `<${config.icon} />` : ''}${config.customText}
+  </Button>`;
+  }
+
 
   const [config, setConfig] = useState({
     variant: 'primary' as Variant,
@@ -52,7 +42,7 @@ export default function ButtonPlayground() {
     showIcon: false,
     icon: 'Check' as 'Check' | 'ChevronRight',
     customText: 'Dynamic Button',
-    gradient: 'none',
+    gradient: { from: '#ff0000', to: '#ff77aa' },
     rounded: 'md',
     shadow: false,
     hoverEffect: true,
@@ -78,8 +68,11 @@ export default function ButtonPlayground() {
           variant={config.variant}
           size={config.size}
           disabled={config.disabled}
-          className={`${config.fullWidth ? 'w-full' : ''} ${gradientStyles[config.gradient]} rounded-${config.rounded} ${config.shadow ? 'shadow-lg' : ''
+          className={`rounded-${config.rounded} ${config.shadow ? 'shadow-lg' : ''
             } ${config.hoverEffect ? 'hover:scale-105 transition-transform' : ''}`}
+          style={{
+            background: `linear-gradient(to right, ${config.gradient.from}, ${config.gradient.to})`,
+          }}
         >
           {config.showIcon && iconMap[config.icon]}
           {config.customText}
@@ -90,7 +83,7 @@ export default function ButtonPlayground() {
             <Button
               variant="outline"
               size="sm"
-              className={`px-2 py-1 bg-gray-200  ${copied ? 'dark:bg-green-600 text-gray-100':'dark:bg-gray-800 '} rounded text-sm`}
+              className={`px-2 py-1 bg-gray-200  ${copied ? 'dark:bg-green-600 text-gray-100' : 'dark:bg-gray-800 '} rounded text-sm`}
               onClick={() => {
                 navigator.clipboard.writeText(generateButtonCode());
                 setCopied(true);
@@ -211,19 +204,25 @@ export default function ButtonPlayground() {
           />
         </label>
 
-        <label className="block">
-          Gradient
-          <select
-            value={config.gradient}
-            onChange={(e) => setConfig({ ...config, gradient: e.target.value })}
-            className="w-full border p-1 rounded mt-1"
-          >
-            <option value="none">None</option>
-            <option value="from-red-500 to-pink-500">Red → Pink</option>
-            <option value="from-blue-500 to-green-500">Blue → Green</option>
-            <option value="from-yellow-400 to-orange-500">Yellow → Orange</option>
-          </select>
-        </label>
+        <label className="block mb-2">
+          Gradient From
+
+        </label>   <HexColorPicker
+          color={config.gradient.from}
+          onChange={(color) =>
+            setConfig({ ...config, gradient: { ...config.gradient, from: color } })
+          }
+        />
+
+        <label className="block mb-6">
+          Gradient To
+
+        </label> <HexColorPicker
+          color={config.gradient.to}
+          onChange={(color) =>
+            setConfig({ ...config, gradient: { ...config.gradient, to: color } })
+          }
+        />
 
         <label className="block">
           Rounded
