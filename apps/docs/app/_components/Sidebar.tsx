@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 const components = [
-  { name: "Button", href: "/components/button" },
+  { name: "Button", href: "/components/Button" },
   { name: "Input", href: "/components/input" },
   { name: "Card", href: "/components/card" },
   { name: "Avatar", href: "/components/avatar" },
