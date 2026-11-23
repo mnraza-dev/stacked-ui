@@ -22,13 +22,16 @@ import {
   ArrowRight,
   Sparkles,
   Zap,
-  ShieldCheck,
-  Palette,
   Terminal,
   Copy,
   Check,
   Star,
   ExternalLink,
+  Layers,
+  Layout,
+  Box,
+  LayoutTemplate,
+  CheckCircle2,
 } from "lucide-react";
 import * as React from "react";
 
@@ -44,35 +47,44 @@ export default function Home() {
   };
 
   return (
-    <div className="space-y-20 py-6">
+    <div className="space-y-24 py-6">
       {/* Hero Section */}
       <section className="text-center space-y-6 pt-6 sm:pt-12">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border bg-muted/60 text-xs font-medium text-foreground backdrop-blur-xs">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-border bg-muted/60 text-xs font-medium text-foreground backdrop-blur-xs">
           <Sparkles className="size-3.5 text-primary" />
-          <span>Stacked UI v0.1.0 is now live</span>
+          <span>Stacked UI 2.0 Ecosystem is live</span>
           <span className="text-muted-foreground">•</span>
-          <span className="text-primary font-semibold">Tailwind CSS v4 Ready</span>
+          <span className="text-primary font-semibold">Components • Sections • Blocks • Templates</span>
         </div>
 
-        <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight max-w-4xl mx-auto leading-tight sm:leading-none">
-          Build <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">effortlessly</span> with modern React components.
+        <h1 className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight max-w-5xl mx-auto leading-tight sm:leading-none">
+          Everything you need to build{" "}
+          <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
+            modern web apps
+          </span>
         </h1>
 
-        <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto">
-          An open-source UI ecosystem crafted for developer velocity. Beautiful defaults, strict TypeScript, Radix UI accessibility, and full Tailwind CSS v4 theming.
+        <p className="text-base sm:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+          From individual accessible primitives to complete multi-page SaaS dashboard templates. Built with Tailwind CSS v4, Radix UI, and strict TypeScript.
         </p>
 
         {/* CTA Buttons */}
-        <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
-          <Link href="/components/button">
-            <Button variant="primary" size="lg" className="gap-2 shadow-lg shadow-indigo-500/20">
-              Browse Components
+        <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+          <Link href="/templates/saas-dashboard">
+            <Button variant="primary" size="lg" className="gap-2 shadow-lg shadow-indigo-500/25">
+              <Sparkles className="size-4" />
+              <span>Explore SaaS Dashboard</span>
               <ArrowRight className="size-4" />
             </Button>
           </Link>
-          <Link href="/docs/installation">
+          <Link href="/components/button">
             <Button variant="outline" size="lg">
-              Get Started
+              Browse Components
+            </Button>
+          </Link>
+          <Link href="/sections">
+            <Button variant="outline" size="lg">
+              Website Sections
             </Button>
           </Link>
         </div>
@@ -117,13 +129,151 @@ export default function Home() {
         </div>
       </section>
 
+      {/* 4 Pillars Grid: Components, Sections, Blocks, Templates */}
+      <section className="space-y-6">
+        <div className="text-center space-y-2">
+          <Badge variant="outline" size="sm">Product Pillars</Badge>
+          <h2 className="text-3xl font-bold tracking-tight">Engineered at Every Abstraction Layer</h2>
+          <p className="text-sm text-muted-foreground max-w-lg mx-auto">
+            Choose the exact level of granularity your engineering team needs.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 pt-2">
+          {/* Card 1: Components */}
+          <Link href="/components/button" className="group">
+            <Card className="h-full hover:border-primary/50 transition-all p-5 space-y-3">
+              <div className="size-10 rounded-lg bg-blue-500/10 text-blue-500 flex items-center justify-center">
+                <Layers className="size-5" />
+              </div>
+              <div>
+                <div className="flex items-center justify-between">
+                  <h3 className="font-bold text-base group-hover:text-primary transition-colors">Components</h3>
+                  <Badge variant="outline" size="sm">30+ Primitives</Badge>
+                </div>
+                <p className="text-xs text-muted-foreground mt-1 leading-relaxed">
+                  Accessible, keyboard-navigable buttons, dialogs, dropdowns, inputs, tables, and tabs.
+                </p>
+              </div>
+              <span className="text-xs text-primary font-medium flex items-center gap-1 group-hover:underline pt-2">
+                Browse UI Primitives <ArrowRight className="size-3" />
+              </span>
+            </Card>
+          </Link>
+
+          {/* Card 2: Sections */}
+          <Link href="/sections" className="group">
+            <Card className="h-full hover:border-primary/50 transition-all p-5 space-y-3">
+              <div className="size-10 rounded-lg bg-indigo-500/10 text-indigo-500 flex items-center justify-center">
+                <Layout className="size-5" />
+              </div>
+              <div>
+                <div className="flex items-center justify-between">
+                  <h3 className="font-bold text-base group-hover:text-primary transition-colors">Sections</h3>
+                  <Badge variant="success" size="sm">New</Badge>
+                </div>
+                <p className="text-xs text-muted-foreground mt-1 leading-relaxed">
+                  Ready-to-use landing heroes, Bento grids, pricing tables, review grids, and CTAs.
+                </p>
+              </div>
+              <span className="text-xs text-primary font-medium flex items-center gap-1 group-hover:underline pt-2">
+                Explore Sections <ArrowRight className="size-3" />
+              </span>
+            </Card>
+          </Link>
+
+          {/* Card 3: Blocks */}
+          <Link href="/blocks" className="group">
+            <Card className="h-full hover:border-primary/50 transition-all p-5 space-y-3">
+              <div className="size-10 rounded-lg bg-purple-500/10 text-purple-500 flex items-center justify-center">
+                <Box className="size-5" />
+              </div>
+              <div>
+                <div className="flex items-center justify-between">
+                  <h3 className="font-bold text-base group-hover:text-primary transition-colors">Blocks</h3>
+                  <Badge variant="success" size="sm">New</Badge>
+                </div>
+                <p className="text-xs text-muted-foreground mt-1 leading-relaxed">
+                  Application-level auth forms, profile panels, filterable tables, and onboarding flows.
+                </p>
+              </div>
+              <span className="text-xs text-primary font-medium flex items-center gap-1 group-hover:underline pt-2">
+                Explore App Blocks <ArrowRight className="size-3" />
+              </span>
+            </Card>
+          </Link>
+
+          {/* Card 4: Templates */}
+          <Link href="/templates" className="group">
+            <Card className="h-full hover:border-primary/50 transition-all p-5 space-y-3 border-primary/30 bg-primary/5">
+              <div className="size-10 rounded-lg bg-gradient-to-tr from-blue-600 to-indigo-600 text-white flex items-center justify-center">
+                <LayoutTemplate className="size-5" />
+              </div>
+              <div>
+                <div className="flex items-center justify-between">
+                  <h3 className="font-bold text-base group-hover:text-primary transition-colors">Templates</h3>
+                  <Badge variant="gradient" size="sm">Flagship</Badge>
+                </div>
+                <p className="text-xs text-muted-foreground mt-1 leading-relaxed">
+                  Complete multi-page applications with real client-side state, navigation, and charts.
+                </p>
+              </div>
+              <span className="text-xs text-primary font-medium flex items-center gap-1 group-hover:underline pt-2">
+                Launch Live Templates <ArrowRight className="size-3" />
+              </span>
+            </Card>
+          </Link>
+        </div>
+      </section>
+
+      {/* Flagship SaaS Dashboard Highlight Banner */}
+      <section className="rounded-2xl border border-primary/40 bg-gradient-to-br from-card via-card to-indigo-950/20 p-6 sm:p-10 space-y-6 shadow-xl">
+        <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+          <div className="space-y-3 max-w-xl">
+            <Badge variant="gradient" size="sm">Flagship Experience</Badge>
+            <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
+              SaaS Admin Dashboard Template
+            </h2>
+            <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+              Experience our fully functional 7-page administrative dashboard. Test live table sorting, search filtering, project initiative progress bars, billing meter gauges, and role permissions.
+            </p>
+            <div className="flex flex-wrap gap-2 text-xs text-foreground/80 pt-1">
+              <span className="flex items-center gap-1 bg-muted/60 px-2 py-0.5 rounded">
+                <CheckCircle2 className="size-3 text-emerald-500" /> Multi-page layout
+              </span>
+              <span className="flex items-center gap-1 bg-muted/60 px-2 py-0.5 rounded">
+                <CheckCircle2 className="size-3 text-emerald-500" /> Interactive charts
+              </span>
+              <span className="flex items-center gap-1 bg-muted/60 px-2 py-0.5 rounded">
+                <CheckCircle2 className="size-3 text-emerald-500" /> Dark & light mode
+              </span>
+            </div>
+          </div>
+
+          <div className="flex flex-col sm:flex-row gap-3 shrink-0 w-full sm:w-auto">
+            <Link href="/templates/saas-dashboard" className="w-full sm:w-auto">
+              <Button variant="primary" size="lg" className="w-full sm:w-auto gap-2 shadow-lg shadow-indigo-500/20">
+                <Sparkles className="size-4" />
+                <span>Launch Live Application</span>
+                <ExternalLink className="size-3.5" />
+              </Button>
+            </Link>
+            <Link href="/templates" className="w-full sm:w-auto">
+              <Button variant="outline" size="lg" className="w-full sm:w-auto text-xs">
+                View All Templates
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Live Interactive Component Showcase */}
       <section className="space-y-6">
         <div className="text-center space-y-2">
           <Badge variant="outline" size="sm">Interactive Showcase</Badge>
-          <h2 className="text-3xl font-bold tracking-tight">Crafted for modern web apps</h2>
+          <h2 className="text-3xl font-bold tracking-tight">Live Component Primitives</h2>
           <p className="text-sm text-muted-foreground max-w-lg mx-auto">
-            Interact with live components rendered straight from the Stacked UI package.
+            Test and interact directly with components rendered straight from the Stacked UI core.
           </p>
         </div>
 
@@ -187,7 +337,7 @@ export default function Home() {
           <div className="space-y-6">
             <StatCard
               title="Monthly Recurring Revenue"
-              value="$42,850"
+              value="$54,230"
               change={18.4}
               changePeriod="vs last month"
             />
@@ -202,59 +352,16 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Feature Highlights Grid */}
-      <section className="space-y-8 pt-8 border-t border-border">
-        <div className="text-center space-y-2">
-          <Badge variant="outline" size="sm">Architecture</Badge>
-          <h2 className="text-3xl font-bold tracking-tight">Why Choose Stacked UI?</h2>
-          <p className="text-sm text-muted-foreground max-w-xl mx-auto">
-            Architected specifically for developer productivity, team maintainability, and production reliability.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div className="p-6 rounded-xl border border-border bg-card space-y-3">
-            <div className="size-10 rounded-lg bg-blue-500/10 text-blue-500 flex items-center justify-center">
-              <Palette className="size-5" />
-            </div>
-            <h3 className="font-semibold text-lg">Tailwind CSS v4 Native</h3>
-            <p className="text-sm text-muted-foreground">
-              Built on modern CSS theme variables with OKLCH color spaces, responsive design tokens, and smooth transitions.
-            </p>
-          </div>
-
-          <div className="p-6 rounded-xl border border-border bg-card space-y-3">
-            <div className="size-10 rounded-lg bg-green-500/10 text-green-500 flex items-center justify-center">
-              <ShieldCheck className="size-5" />
-            </div>
-            <h3 className="font-semibold text-lg">Accessible by Default</h3>
-            <p className="text-sm text-muted-foreground">
-              Powered by robust Radix UI primitives ensuring full WAI-ARIA compliance, screen-reader support, and keyboard navigation.
-            </p>
-          </div>
-
-          <div className="p-6 rounded-xl border border-border bg-card space-y-3">
-            <div className="size-10 rounded-lg bg-indigo-500/10 text-indigo-500 flex items-center justify-center">
-              <Terminal className="size-5" />
-            </div>
-            <h3 className="font-semibold text-lg">Flexible CLI Scaffolding</h3>
-            <p className="text-sm text-muted-foreground">
-              Use either the pre-bundled npm package or scaffold custom components directly into your codebase with <code className="text-xs font-mono">stackedui-cli</code>.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Productization / Tier Strategy */}
+      {/* Free & Pro Pricing Overview */}
       <section className="p-8 sm:p-12 rounded-2xl border border-border bg-gradient-to-br from-card to-muted/40 space-y-6">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div className="space-y-2 max-w-xl">
-            <Badge variant="gradient" size="sm">Open Source + Premium Ecosystem</Badge>
+            <Badge variant="gradient" size="sm">Free Core • Infinite Possibilities</Badge>
             <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">
-              Free Core. Infinite Possibilities.
+              Open Source Foundation with Premium Power
             </h2>
             <p className="text-sm text-muted-foreground">
-              Stacked UI is 100% free and open-source under the MIT license. In our upcoming releases, look out for premium SaaS starter kits, production dashboard templates, and specialized marketing blocks.
+              All 30+ component primitives and selected sections are 100% free under the MIT license. Upgrade to the Pro ecosystem for the full SaaS dashboard template and advanced application blocks.
             </p>
           </div>
 
@@ -269,10 +376,10 @@ export default function Home() {
                 Star on GitHub
               </Button>
             </a>
-            <Link href="/docs/introduction">
+            <Link href="/sections/pricing">
               <Button variant="primary" size="default" className="gap-1.5">
-                Read the Docs
-                <ExternalLink className="size-3.5" />
+                Explore Pricing
+                <ArrowRight className="size-3.5" />
               </Button>
             </Link>
           </div>
