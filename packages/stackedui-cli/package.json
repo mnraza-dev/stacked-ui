@@ -15,10 +15,10 @@
   "author": "MN Raza",
   "license": "MIT",
   "dependencies": {
-    "chalk": "^5.4.1"
+    "chalk": "^6.0.1"
   },
   "devDependencies": {
-    "@types/node": "^22.15.20",
-    "typescript": "^5.8.3"
+    "@types/node": "^26.6.6",
+    "typescript": "^7.0.2"
   }
 }
