@@ -1,0 +1,95 @@
+name: Release & Publish
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run (test packaging without publishing to npm)'
+        required: false
+        default: false
+        type: boolean
+      dist_tag:
+        description: 'npm dist-tag (e.g. latest, beta, next)'
+        required: false
+        default: 'latest'
+        type: string
+
+permissions:
+  contents: write
+  id-token: write
+
+jobs:
+  release:
+    name: Build, Verify & Publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+          run_install: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: 'https://registry.npmjs.org'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile --trust-lockfile
+
+      - name: Quality checks
+        run: |
+          pnpm lint
+          pnpm typecheck
+          pnpm test
+
+      - name: Build packages
+        run: |
+          pnpm build:lib
+          pnpm build:cli
+
+      - name: Verify build artifacts
+        run: |
+          test -f packages/stackedui/dist/index.js || { echo "stackedui dist/index.js is missing"; exit 1; }
+          test -f packages/stackedui/dist/index.css || { echo "stackedui dist/index.css is missing"; exit 1; }
+          test -f packages/stackedui/dist/index.d.ts || { echo "stackedui dist/index.d.ts is missing"; exit 1; }
+          test -f packages/stackedui-cli/dist/cli.js || { echo "stackedui-cli dist/cli.js is missing"; exit 1; }
+
+      - name: Package packing dry run
+        run: |
+          cd packages/stackedui && npm pack --dry-run
+          cd ../stackedui-cli && npm pack --dry-run
+
+      - name: Publish stackedui to npm
+        if: ${{ !inputs.dry_run }}
+        run: |
+          pnpm --filter stackedui publish --access public --tag ${{ inputs.dist_tag || 'latest' }} --provenance --no-git-checks
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish stackedui-cli to npm
+        if: ${{ !inputs.dry_run }}
+        run: |
+          pnpm --filter stackedui-cli publish --access public --tag ${{ inputs.dist_tag || 'latest' }} --provenance --no-git-checks
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Create GitHub Release
+        if: ${{ startsWith(github.ref, 'refs/tags/v') && !inputs.dry_run }}
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          draft: false
+          prerelease: ${{ contains(github.ref, '-beta') || contains(github.ref, '-alpha') || contains(github.ref, '-rc') }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

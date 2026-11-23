@@ -1,0 +1,32 @@
+name: Feature Request
+description: Propose a new feature, component, or enhancement for Stacked UI
+title: '[Feature]: '
+labels: ['enhancement', 'feature-request']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        We appreciate ideas for making Stacked UI better! Please share your concept and use case.
+  - type: input
+    id: title
+    attributes:
+      label: Feature Summary
+      placeholder: Add Command Palette / Combobox component
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or Use Case
+      description: What problem does this solve, or what need does this address?
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed Solution or API Design
+      description: Describe the component structure, props, or behavior you would like to see.
+      placeholder: |
+        `<Command> ... </Command>`
+    validations:
+      required: false

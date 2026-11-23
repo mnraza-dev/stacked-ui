@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: GitHub Discussions
+    url: https://github.com/mnraza-dev/stacked-ui/discussions
+    about: Ask questions, share ideas, and connect with the community.
+  - name: Stacked UI Documentation
+    url: https://stacked-ui.vercel.app
+    about: Explore component documentation, live interactive previews, and setup guides.
