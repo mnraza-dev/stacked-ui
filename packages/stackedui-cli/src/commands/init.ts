@@ -1,68 +1,84 @@
-#!/usr/bin/env node
-import { execSync } from "child_process";
 import fs from "fs";
 import path from "path";
+import chalk from "chalk";
+import { execSync } from "child_process";
 
-async function main() {
-  const projectRoot = process.cwd();
+export async function initCommand(args: string[]) {
+  const cwd = process.cwd();
+  console.log(chalk.bold.hex("#6366f1")("\n🚀 Initializing Stacked UI in your project...\n"));
 
-  console.log("🚀 Initializing stackedui in your project...");
+  // Detect package manager
+  let pm = "npm";
+  if (fs.existsSync(path.join(cwd, "pnpm-lock.yaml"))) pm = "pnpm";
+  else if (fs.existsSync(path.join(cwd, "yarn.lock"))) pm = "yarn";
+  else if (fs.existsSync(path.join(cwd, "bun.lockb")) || fs.existsSync(path.join(cwd, "bun.lock"))) pm = "bun";
 
+  const addCmd = pm === "npm" ? "npm install" : pm === "yarn" ? "yarn add" : `${pm} add`;
+
+  // 1. Install base peer dependencies
+  console.log(chalk.blue(`📦 Installing core dependencies using ${pm}...`));
+  const baseDeps = ["clsx", "tailwind-merge", "class-variance-authority", "lucide-react"];
   try {
-    console.log("📦 Installing required dependencies...");
-    execSync(
-      "pnpm add clsx tailwind-merge @radix-ui/react-slot",
-      { stdio: "inherit" }
-    );
-    console.log("✅ Dependencies installed.");
-  } catch (e) {
-    console.error("❌ Failed to install dependencies. Please install manually.");
-    process.exit(1);
-  }
-  const tailwindConfigPath = path.join(projectRoot, "tailwind.config.js");
-  if (!fs.existsSync(tailwindConfigPath)) {
-    console.log("🛠️ Creating default tailwind.config.js...");
-    const tailwindConfigContent = `/** @type {import('tailwindcss').Config} */
-module.exports = {
-  content: ["./src/**/*.{js,ts,jsx,tsx}", "./app/**/*.{js,ts,jsx,tsx}"],
-  theme: {
-    extend: {},
-  },
-  plugins: [],
-};
-`;
-    fs.writeFileSync(tailwindConfigPath, tailwindConfigContent, "utf-8");
-    console.log("✅ tailwind.config.js created.");
-  } else {
-    console.log("ℹ️ tailwind.config.js already exists. Skipping creation.");
+    execSync(`${addCmd} ${baseDeps.join(" ")}`, { stdio: "inherit", cwd });
+    console.log(chalk.green("✔ Base dependencies installed.\n"));
+  } catch (err) {
+    console.warn(chalk.yellow("⚠️ Failed to auto-install dependencies. Please run manually:"));
+    console.warn(chalk.cyan(`  ${addCmd} ${baseDeps.join(" ")}\n`));
   }
 
- const utilsDir = path.join(projectRoot, "src/lib");
-  const utilsFile = path.join(utilsDir, "utils.ts");
+  // 2. Create lib/utils.ts with cn() helper
+  const isSrc = fs.existsSync(path.join(cwd, "src"));
+  const libDir = isSrc ? path.join(cwd, "src/lib") : path.join(cwd, "lib");
+  fs.mkdirSync(libDir, { recursive: true });
 
-  if (!fs.existsSync(utilsFile)) {
-    if (!fs.existsSync(utilsDir)) {
-      fs.mkdirSync(utilsDir, { recursive: true });
-    }
-    console.log("🛠️ Creating src/lib/utils.ts with `cn` function...");
-    const utilsContent = `import { clsx, ClassValue } from "clsx";
+  const utilsPath = path.join(libDir, "utils.ts");
+  if (!fs.existsSync(utilsPath)) {
+    const utilsContent = `import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(...inputs));
+  return twMerge(clsx(inputs));
 }
 `;
-    fs.writeFileSync(utilsFile, utilsContent, "utf-8");
-    console.log("✅ src/lib/utils.ts created.");
+    fs.writeFileSync(utilsPath, utilsContent, "utf-8");
+    console.log(chalk.green(`✔ Created ${path.relative(cwd, utilsPath)}`));
   } else {
-    console.log("ℹ️ src/lib/utils.ts already exists. Skipping creation.");
+    console.log(chalk.dim(`ℹ ${path.relative(cwd, utilsPath)} already exists.`));
   }
 
-  console.log("🎉 stackedui initialized successfully!");
-  console.log("👉 Now you can add components with: stackedui-cli add <component-name>");
-}
+  // 3. Create components.json configuration
+  const componentsJsonPath = path.join(cwd, "components.json");
+  if (!fs.existsSync(componentsJsonPath)) {
+    const config = {
+      $schema: "https://ui.shadcn.com/schema.json",
+      style: "new-york",
+      rsc: true,
+      tsx: true,
+      tailwind: {
+        config: fs.existsSync(path.join(cwd, "tailwind.config.ts"))
+          ? "tailwind.config.ts"
+          : fs.existsSync(path.join(cwd, "tailwind.config.js"))
+          ? "tailwind.config.js"
+          : "",
+        css: isSrc && fs.existsSync(path.join(cwd, "src/app/globals.css"))
+          ? "src/app/globals.css"
+          : fs.existsSync(path.join(cwd, "app/globals.css"))
+          ? "app/globals.css"
+          : "src/index.css",
+        baseColor: "neutral",
+        cssVariables: true,
+      },
+      aliases: {
+        components: isSrc ? "@/components" : "~/components",
+        utils: isSrc ? "@/lib/utils" : "~/lib/utils",
+        ui: isSrc ? "@/components/ui" : "~/components/ui",
+        lib: isSrc ? "@/lib" : "~/lib",
+      },
+    };
+    fs.writeFileSync(componentsJsonPath, JSON.stringify(config, null, 2), "utf-8");
+    console.log(chalk.green(`✔ Created components.json`));
+  }
 
-main().catch((e) => {
-  console.error("❌ Unexpected error during init:", e);
-  process.exit(1);
-});
+  console.log(chalk.bold.green("\n✨ Stacked UI initialized successfully!"));
+  console.log(`Add your first component: ${chalk.cyan("npx stackedui-cli add button")}\n`);
+}

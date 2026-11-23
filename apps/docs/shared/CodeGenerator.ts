@@ -1,4 +1,6 @@
-export function generateButtonCode(config: any, iconMap: Record<string, JSX.Element>) {
+import type { ReactNode } from "react";
+
+export function generateButtonCode(config: any, iconMap: Record<string, ReactNode>) {
   return `<Button
   variant="${config.variant}"
   size="${config.size}"

@@ -1,15 +1,32 @@
-import { HexColorPicker } from 'react-colorful';
+import { HexColorPicker } from "react-colorful";
 
-export default function GradientPicker({ gradient, onChange }: { gradient: { from: string; to: string }, onChange: (g: any) => void }) {
+interface GradientPickerProps {
+  gradient: { from: string; to: string };
+  onChange: (g: { from: string; to: string }) => void;
+}
+
+export default function GradientPicker({ gradient, onChange }: GradientPickerProps) {
   return (
     <div className="space-y-4">
       <div>
-        <label>Gradient From</label>
-        <HexColorPicker color={gradient.from} onChange={(color) => onChange({ ...gradient, from: color })} />
+        <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground block mb-1">
+          Gradient From
+        </label>
+        <HexColorPicker
+          color={gradient.from}
+          onChange={(color) => onChange({ ...gradient, from: color })}
+          className="!w-full !h-32"
+        />
       </div>
       <div>
-        <label>Gradient To</label>
-        <HexColorPicker color={gradient.to} onChange={(color) => onChange({ ...gradient, to: color })} />
+        <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground block mb-1">
+          Gradient To
+        </label>
+        <HexColorPicker
+          color={gradient.to}
+          onChange={(color) => onChange({ ...gradient, to: color })}
+          className="!w-full !h-32"
+        />
       </div>
     </div>
   );

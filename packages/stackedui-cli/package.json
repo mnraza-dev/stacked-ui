@@ -1,23 +1,24 @@
 {
   "name": "stackedui-cli",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Command line interface for Stacked UI",
+  "type": "module",
+  "main": "dist/index.js",
   "bin": {
     "stackedui-cli": "dist/cli.js"
   },
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "typecheck": "tsc --noEmit"
   },
-  "devDependencies": {
-    "@types/chalk": "^2.2.4",
-    "@types/node": "^22.15.20",
-    "typescript": "^5.8.3"
-  },
-  "keywords": [],
+  "keywords": ["stackedui", "ui", "components", "cli"],
   "author": "MN Raza",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "chalk": "^5.4.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.20",
+    "typescript": "^5.8.3"
   }
 }

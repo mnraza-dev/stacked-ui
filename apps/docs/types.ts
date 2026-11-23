@@ -1,4 +1,4 @@
-import { JSX } from 'react';
+import type { ReactNode } from 'react';
 
 export type IconType = 'Check' | 'ChevronRight';
 
@@ -16,4 +16,4 @@ export type ButtonConfigType = {
   hoverEffect: boolean;
 };
 
-export type IconMapType = Record<IconType, JSX.Element>;
+export type IconMapType = Record<IconType, ReactNode>;

@@ -1,15 +1,21 @@
-'use client';
+"use client";
 
-import { MDXProvider } from '@mdx-js/react';
-import { Button } from 'stackedui';
-import { Check, ChevronRight } from 'lucide-react';
+import * as React from "react";
+import { ThemeProvider } from "next-themes";
+import { MDXProvider } from "@mdx-js/react";
+import { Button } from "stackedui";
+import { Check, ChevronRight } from "lucide-react";
 
 const components = {
-  Button: (props: any) => <Button {...props} />,
-  Check: (props: any) => <Check {...props} />,
-  ChevronRight: (props: any) => <ChevronRight {...props} />,
+  Button: (props: React.ComponentProps<typeof Button>) => <Button {...props} />,
+  Check: (props: React.ComponentProps<typeof Check>) => <Check {...props} />,
+  ChevronRight: (props: React.ComponentProps<typeof ChevronRight>) => <ChevronRight {...props} />,
 };
 
 export function MDXWrapper({ children }: { children: React.ReactNode }) {
-  return <MDXProvider components={components}>{children}</MDXProvider>;
+  return (
+    <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+      <MDXProvider components={components}>{children}</MDXProvider>
+    </ThemeProvider>
+  );
 }

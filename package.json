@@ -1,10 +1,22 @@
 {
+  "name": "stacked-ui-monorepo",
   "private": true,
+  "type": "module",
   "workspaces": [
     "packages/*",
     "apps/*"
   ],
-  "dependencies": {
-    "@mdx-js/react": "^3.1.1"
+  "scripts": {
+    "dev": "pnpm --filter docs dev",
+    "build": "pnpm --filter stackedui run build && pnpm --filter stackedui-cli run build && pnpm --filter docs run build",
+    "build:lib": "pnpm --filter stackedui run build",
+    "build:cli": "pnpm --filter stackedui-cli run build",
+    "build:docs": "pnpm --filter docs run build",
+    "lint": "pnpm --filter stackedui run lint && pnpm --filter docs run lint",
+    "typecheck": "pnpm --filter stackedui run typecheck && pnpm --filter stackedui-cli run typecheck && pnpm --filter docs run typecheck",
+    "test": "pnpm --filter stackedui run test"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3"
   }
 }
